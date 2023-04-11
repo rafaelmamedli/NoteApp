@@ -1,8 +1,8 @@
-package com.example.noteapp.util
+package com.example.noteapp.data.util
 
 object FireStoreTable{
-
     const val NOTE = "note"
+    const val USER = "user"
 }
 
 object FireStoreDocumentField {

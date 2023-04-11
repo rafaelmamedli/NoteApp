@@ -1,4 +1,4 @@
-package com.example.noteapp.note
+package com.example.noteapp.view.note
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,10 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.example.noteapp.data.model.Note
-import com.example.noteapp.util.UiState
-import com.example.noteapp.util.hide
-import com.example.noteapp.util.toast
+import com.example.noteapp.data.util.UiState
+import com.example.noteapp.data.util.hide
+import com.example.noteapp.data.util.toast
 import com.example.mvvm_firestpre_mvvm.databinding.FragmentNoteDetailBinding
+import com.example.noteapp.viewmodel.NoteViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 

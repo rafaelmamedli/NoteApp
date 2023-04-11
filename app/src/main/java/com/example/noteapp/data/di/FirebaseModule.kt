@@ -1,5 +1,6 @@
-package com.example.noteapp.di
+package com.example.noteapp.data.di
 
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module
 import dagger.Provides
@@ -16,6 +17,12 @@ object FirebaseModule {
     @Singleton
     fun provideFireStoreInstance(): FirebaseFirestore{
         return FirebaseFirestore.getInstance()
+    }
+
+    @Provides
+    @Singleton
+    fun provideFireAuthInstance(): FirebaseAuth{
+        return FirebaseAuth.getInstance()
     }
 
 }

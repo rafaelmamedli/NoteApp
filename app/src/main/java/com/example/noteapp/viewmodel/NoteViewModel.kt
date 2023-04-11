@@ -1,11 +1,11 @@
-package com.example.noteapp.note
+package com.example.noteapp.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.noteapp.data.model.Note
 import com.example.noteapp.data.repo.NoteRepository
-import com.example.noteapp.util.UiState
+import com.example.noteapp.data.util.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

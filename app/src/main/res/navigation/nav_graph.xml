@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/noteListeningFragment">
+    app:startDestination="@id/registerFragment">
 
     <fragment
         android:id="@+id/noteListeningFragment"
-        android:name="com.example.noteapp.note.NoteListingragment"
+        android:name="com.example.noteapp.view.note.NoteListingragment"
         android:label="fragment_note_listening"
         tools:layout="@layout/fragment_note_listening" >
         <action
@@ -16,7 +16,16 @@
     </fragment>
     <fragment
         android:id="@+id/noteDetailFragment"
-        android:name="com.example.noteapp.note.NoteDetailFragment"
+        android:name="com.example.noteapp.view.note.NoteDetailFragment"
         android:label="fragment_note_detail"
         tools:layout="@layout/fragment_note_detail" />
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.example.noteapp.view.auth.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" >
+        <action
+            android:id="@+id/action_registerFragment_to_noteListeningFragment"
+            app:destination="@id/noteListeningFragment" />
+    </fragment>
 </navigation>

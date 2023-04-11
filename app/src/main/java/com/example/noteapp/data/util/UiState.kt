@@ -1,4 +1,4 @@
-package com.example.noteapp.util
+package com.example.noteapp.data.util
 
 sealed class UiState<out T> {
     object Loading : UiState<Nothing>()

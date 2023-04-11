@@ -1,7 +1,7 @@
 package com.example.noteapp.data.repo
 
 import com.example.noteapp.data.model.Note
-import com.example.noteapp.util.UiState
+import com.example.noteapp.data.util.UiState
 
 interface NoteRepository {
 

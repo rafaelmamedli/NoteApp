@@ -1,4 +1,4 @@
-package com.example.noteapp.util
+package com.example.noteapp.data.util
 
 import android.view.View
 import android.widget.Toast
@@ -19,3 +19,6 @@ fun View.gone(){
 fun Fragment.toast(msg:String){
     Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
 }
+
+fun String.isValidEmail()=
+    isNotEmpty() && android.util.Patterns.EMAIL_ADDRESS.matcher(this).matches()
