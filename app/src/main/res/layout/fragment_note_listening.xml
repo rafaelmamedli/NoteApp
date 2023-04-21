@@ -4,7 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.noteapp.view.note.NoteListingragment">
+    tools:context="com.example.noteapp.view.note.NoteListingFragment">
+
+    <ImageView
+        android:id="@+id/logOut"
+        android:layout_width="49dp"
+        android:layout_height="40dp"
+        android:src="@drawable/baseline_exit_to_app_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button"
@@ -13,7 +21,7 @@
         android:text="New Note"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/logOut" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"

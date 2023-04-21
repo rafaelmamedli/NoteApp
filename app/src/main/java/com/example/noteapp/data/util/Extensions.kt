@@ -3,6 +3,7 @@ package com.example.noteapp.data.util
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 
 fun View.hide(){
     visibility = View.GONE
@@ -18,6 +19,10 @@ fun View.gone(){
 
 fun Fragment.toast(msg:String){
     Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
+}
+
+fun goTo(it: View, id: Int) {
+    Navigation.findNavController(it).navigate(id)
 }
 
 fun String.isValidEmail()=

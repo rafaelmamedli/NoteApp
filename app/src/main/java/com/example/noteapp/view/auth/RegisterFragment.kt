@@ -17,7 +17,6 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class RegisterFragment : Fragment() {
-
     lateinit var binding: FragmentRegisterBinding
     private val viewModel: AuthViewModel by viewModels()
 
@@ -45,7 +44,7 @@ class RegisterFragment : Fragment() {
         }
     }
 
-    fun observer() {
+    private fun observer() {
         viewModel.register.observe(viewLifecycleOwner) { state ->
             when(state){
                 is UiState.Loading -> {
@@ -54,19 +53,19 @@ class RegisterFragment : Fragment() {
                 }
                 is UiState.Failure -> {
                     binding.registerProgress.hide()
-
                 }
                 is UiState.Success -> {
                     binding.registerProgress.hide()
                     toast(state.data)
                     findNavController().navigate(R.id.action_registerFragment_to_noteListeningFragment)
 
+
                 }
             }
         }
     }
 
-    fun getUserObj(): User {
+    private fun getUserObj(): User {
         return User(
             id = "",
             user_name = binding.userName.text.toString(),

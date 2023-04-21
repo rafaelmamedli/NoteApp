@@ -43,9 +43,9 @@ class NoteListingAdapter(
 
     inner class MyViewHolder(val binding: ItemNoteLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Note){
-            binding.title.setText(item.text)
-            binding.date.setText(sdf.format(item.date))
-            binding.desc.setText(item.id)
+            binding.desc.text = item.text.toString()
+            binding.date.text = sdf.format(item.date)
+            binding.title.text = item.title
             binding.edit.setOnClickListener { onEditClicked.invoke(adapterPosition,item) }
             binding.delete.setOnClickListener { onDeleteClicked.invoke(adapterPosition,item) }
             binding.itemLayout.setOnClickListener { onItemClicked.invoke(adapterPosition,item) }

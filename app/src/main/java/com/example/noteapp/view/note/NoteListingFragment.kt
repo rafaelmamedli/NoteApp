@@ -14,18 +14,21 @@ import com.example.noteapp.data.util.hide
 import com.example.noteapp.data.util.toast
 import com.example.mvvm_firestpre_mvvm.R
 import com.example.mvvm_firestpre_mvvm.databinding.FragmentNoteListeningBinding
+import com.example.noteapp.data.util.goTo
+import com.example.noteapp.viewmodel.AuthViewModel
 import com.example.noteapp.viewmodel.NoteViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class NoteListingragment : Fragment() {
+class NoteListingFragment : Fragment() {
     lateinit var binding: FragmentNoteListeningBinding
     private val viewModel: NoteViewModel by viewModels()
+    private val authViewModel: AuthViewModel by viewModels()
     var deletePosition: Int = -1
     var list: MutableList<Note> = arrayListOf()
     private val adapter by lazy {
         NoteListingAdapter(
-            onItemClicked = { pos, item ->
+            onItemClicked = { _, item ->
                 findNavController().navigate(
                     R.id.action_noteListeningFragment_to_noteDetailFragment,
                     Bundle().apply {
@@ -34,7 +37,7 @@ class NoteListingragment : Fragment() {
 
                     })
             },
-            onEditClicked = { pos, item ->
+            onEditClicked = { _, item ->
                 findNavController().navigate(
                     R.id.action_noteListeningFragment_to_noteDetailFragment,
                     Bundle().apply {
@@ -70,24 +73,18 @@ class NoteListingragment : Fragment() {
                     putString("type", "create")
                 })
         }
-        viewModel.getNotes()
-        viewModel.note.observe(viewLifecycleOwner) { state ->
-            when (state) {
-                is UiState.Loading -> {
-                    binding.progressBar.visibility = View.VISIBLE
-                }
-                is UiState.Success -> {
-                    binding.progressBar.hide()
-                    adapter.updateList(state.data.toMutableList())
-                }
-                is UiState.Failure -> {
-                    binding.progressBar.hide()
-                    state.error?.let { toast(it) }
-                }
+        observer()
 
+        binding.logOut.setOnClickListener {
+            authViewModel.logout {
+            goTo(it,R.id.action_noteListeningFragment_to_loginFragment)
             }
-
         }
+
+        authViewModel.getSession {
+            viewModel.getNotes(it)
+        }
+
 
         viewModel.deleteNote.observe(viewLifecycleOwner) { state ->
             when (state) {
@@ -109,6 +106,25 @@ class NoteListingragment : Fragment() {
 
         }
     }
+
+    private fun observer() {
+        viewModel.note.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is UiState.Loading -> {
+                    binding.progressBar.visibility = View.VISIBLE
+                }
+                is UiState.Success -> {
+                    binding.progressBar.hide()
+                    adapter.updateList(state.data.toMutableList())
+                }
+                is UiState.Failure -> {
+                    binding.progressBar.hide()
+                    state.error?.let { toast(it) }
+                }
+
+            }
+
+        }    }
 
 
 }

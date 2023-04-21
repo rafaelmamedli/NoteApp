@@ -1,15 +1,20 @@
 package com.example.noteapp.data.repo
 
 import com.example.noteapp.data.model.Note
+import com.example.noteapp.data.model.User
+import com.example.noteapp.data.util.FireStoreDocumentField
 import com.example.noteapp.data.util.FireStoreTable
 import com.example.noteapp.data.util.UiState
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 
 class NoteRepositoryImp(
     private val database: FirebaseFirestore
 ) : NoteRepository {
-    override fun getNotes(result: (UiState<List<Note>>) -> Unit) {
+    override fun getNotes(user: User?, result: (UiState<List<Note>>) -> Unit) {
         database.collection(FireStoreTable.NOTE)
+            .whereEqualTo(FireStoreDocumentField.USER_ID,user?.id)
+            .orderBy(FireStoreDocumentField.DATE, Query.Direction.DESCENDING)
             .get()
             .addOnSuccessListener {
                 val notes = arrayListOf<Note>()

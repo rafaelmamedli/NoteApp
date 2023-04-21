@@ -7,9 +7,10 @@ import java.util.Date
 
 @Parcelize
 data class Note(
-        var id: String = "",
-    //    val title:String ="",
-        val text: String = "",
-        @ServerTimestamp
-        val date:Date = Date()
-        ): Parcelable
+    var id: String = "",
+    var title: String = "",
+    val text: String = "",
+    var user_id: String = "",
+    @ServerTimestamp
+    val date: Date = Date()
+) : Parcelable

@@ -6,11 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import com.example.mvvm_firestpre_mvvm.R
 import com.example.noteapp.data.model.Note
 import com.example.noteapp.data.util.UiState
 import com.example.noteapp.data.util.hide
 import com.example.noteapp.data.util.toast
 import com.example.mvvm_firestpre_mvvm.databinding.FragmentNoteDetailBinding
+import com.example.noteapp.viewmodel.AuthViewModel
 import com.example.noteapp.viewmodel.NoteViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
@@ -19,6 +22,7 @@ import java.util.*
 class NoteDetailFragment : Fragment() {
 
     private val viewModel: NoteViewModel by viewModels()
+    private val authViewModel: AuthViewModel by viewModels()
     lateinit var binding: FragmentNoteDetailBinding
     var isEdit = false
     var objectNote: Note? = null
@@ -42,34 +46,36 @@ class NoteDetailFragment : Fragment() {
                 createNote()
             }
         }
-
-
     }
 
-
     private fun updateNote() {
-        if (validation()){
+        if (validation()) {
             viewModel.updateNote(
                 Note(
                     id = objectNote?.id ?: "",
-                    binding.editText.text.toString(),
-                    Date()
-                )
+                    text = binding.editText.text.toString(),
+                    date = Date(),
+                    title = binding.titleEt.text.toString()
+                ).apply { authViewModel.getSession { this.user_id = it?.id ?: "" } }
             )
         }
 
-        viewModel.updateNote.observe(viewLifecycleOwner){ state ->
-            when(state){
+        viewModel.updateNote.observe(viewLifecycleOwner) { state ->
+            when (state) {
 
                 is UiState.Loading -> {
                     binding.progressBarDetail.visibility = View.VISIBLE
+                    binding.btnUpdate.text = ""
                 }
                 is UiState.Success -> {
                     binding.progressBarDetail.hide()
                     toast(state.data)
+                    binding.btnUpdate.text = "Update"
+
 
                 }
-                is UiState.Failure ->{
+                is UiState.Failure -> {
+                    binding.btnUpdate.text = "Update"
                     binding.progressBarDetail.hide()
                     state.error?.let { toast(it) }
                 }
@@ -84,10 +90,11 @@ class NoteDetailFragment : Fragment() {
         if (validation()) {
             viewModel.addNote(
                 Note(
-                    id = "" ,
-                    binding.editText.text.toString(),
-                    Date()
-                )
+                    id = "",
+                    text = binding.editText.text.toString(),
+                    date = Date(),
+                    title = binding.titleEt.text.toString()
+                ).apply { authViewModel.getSession { this.user_id = it?.id ?: "" } }
             )
         }
 
@@ -99,13 +106,14 @@ class NoteDetailFragment : Fragment() {
                 }
                 is UiState.Success -> {
                     binding.progressBarDetail.hide()
-                    binding.btnUpdate.text = "Update"
+                    binding.btnUpdate.text = "Create Note"
+                    findNavController().navigate(R.id.action_noteDetailFragment_to_noteListeningFragment)
                     toast(state.data)
 
                 }
                 is UiState.Failure -> {
                     binding.progressBarDetail.hide()
-                    binding.btnUpdate.text = "Update"
+                    binding.btnUpdate.text = "Create Note"
                     state.error?.let { toast(it) }
                 }
 
@@ -134,7 +142,7 @@ class NoteDetailFragment : Fragment() {
                     isEdit = true
                     objectNote = arguments?.getParcelable("note")
                     binding.editText.setText(objectNote?.text)
-                    binding.btnUpdate.text = "update"
+                    binding.btnUpdate.text = "Update"
 
                 }
             }
@@ -143,12 +151,12 @@ class NoteDetailFragment : Fragment() {
     }
 
     private fun validation(): Boolean {
-        var isValid = true
-        if (binding.editText.text.toString().isNullOrEmpty()) {
-            isValid = false
-            toast("enter message")
+        val message = binding.editText.text.toString()
+        if (message.isNullOrEmpty()) {
+            toast("Enter a message")
+            return false
         }
-        return isValid
+        return true
     }
 
 
