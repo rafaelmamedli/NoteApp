@@ -147,7 +147,7 @@
         <Button
             android:id="@+id/createAccount"
             android:text="Sign up"
-            android:background="@color/text_color"
+            android:background="@color/black"
             android:textColor="@color/text_color_opposite"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>

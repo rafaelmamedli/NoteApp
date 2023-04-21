@@ -11,5 +11,6 @@
     <color name="red">#FF0000</color>
     <color name="dashboard_elements">#FFFFFFFF</color>
     <color name="text_color_opposite">#FFFFFFFF</color>
+    <color name="black10">#1A000000</color>
 
 </resources>

@@ -53,10 +53,10 @@ class RegisterFragment : Fragment() {
                 }
                 is UiState.Failure -> {
                     binding.registerProgress.hide()
+
                 }
                 is UiState.Success -> {
                     binding.registerProgress.hide()
-                    toast(state.data)
                     findNavController().navigate(R.id.action_registerFragment_to_noteListeningFragment)
 
 

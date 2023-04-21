@@ -14,3 +14,5 @@ object SharedPrefConstants {
     const val LOCAL_SHARED_PREF = "local_shared_preference"
     const val USER_SESSION = "local_shared_pref"
 }
+
+ const val TAG = "TAG"

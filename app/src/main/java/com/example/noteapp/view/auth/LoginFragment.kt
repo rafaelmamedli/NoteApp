@@ -57,7 +57,6 @@ class LoginFragment : Fragment() {
                 is UiState.Loading -> {
                     binding.loginButton.text = ""
                     binding.loginProgress.show()
-                    toast("Loas")
                 }
                 is UiState.Failure -> {
                     binding.loginButton.text = "Login"
@@ -67,7 +66,6 @@ class LoginFragment : Fragment() {
                 is UiState.Success -> {
                     binding.loginButton.text = "Login"
                     binding.loginProgress.hide()
-                    toast(state.data)
                     findNavController().navigate(R.id.action_loginFragment_to_noteListeningFragment)
                 }
             }

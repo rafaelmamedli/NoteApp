@@ -26,9 +26,7 @@
         tools:layout="@layout/fragment_note_detail" >
         <action
             android:id="@+id/action_noteDetailFragment_to_noteListeningFragment"
-            app:destination="@id/noteListeningFragment"
-            app:popUpTo="@id/noteListeningFragment"
-            app:popUpToInclusive="true" />
+            app:destination="@id/noteListeningFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
