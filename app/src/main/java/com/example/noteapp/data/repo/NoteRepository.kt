@@ -6,10 +6,10 @@ import com.example.noteapp.data.util.UiState
 
 interface NoteRepository {
 
-    fun getNotes(user: User?,result: (UiState<List<Note>>) -> Unit)
-    fun addNote(note: Note, result: (UiState<String>) -> Unit)
-    fun updateNote(note: Note, result: (UiState<String>) -> Unit)
-    fun deleteNote(note: Note, result: (UiState<String>) -> Unit)
+   suspend fun getNotes(user: User?,result: (UiState<List<Note>>) -> Unit)
+   suspend fun addNote(note: Note, result: (UiState<String>) -> Unit)
+   suspend fun updateNote(note: Note, result: (UiState<String>) -> Unit)
+   suspend fun deleteNote(note: Note, result: (UiState<String>) -> Unit)
 
 
 }

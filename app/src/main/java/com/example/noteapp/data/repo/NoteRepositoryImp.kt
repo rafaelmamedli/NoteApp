@@ -11,7 +11,7 @@ import com.google.firebase.firestore.Query
 class NoteRepositoryImp(
     private val database: FirebaseFirestore
 ) : NoteRepository {
-    override fun getNotes(user: User?, result: (UiState<List<Note>>) -> Unit) {
+    override suspend fun getNotes(user: User?, result: (UiState<List<Note>>) -> Unit) {
         database.collection(FireStoreTable.NOTE)
             .whereEqualTo(FireStoreDocumentField.USER_ID,user?.id)
             .orderBy(FireStoreDocumentField.DATE, Query.Direction.DESCENDING)
@@ -33,7 +33,7 @@ class NoteRepositoryImp(
             }
     }
 
-    override fun addNote(note: Note, result: (UiState<String>) -> Unit) {
+    override suspend fun addNote(note: Note, result: (UiState<String>) -> Unit) {
         val document = database.collection(FireStoreTable.NOTE).document()
         note.id = document.id
         document
@@ -52,7 +52,7 @@ class NoteRepositoryImp(
             }
     }
 
-    override fun updateNote(note: Note, result: (UiState<String>) -> Unit) {
+    override suspend fun updateNote(note: Note, result: (UiState<String>) -> Unit) {
         val document = database.collection(FireStoreTable.NOTE).document(note.id)
         document
             .set(note)
@@ -70,7 +70,7 @@ class NoteRepositoryImp(
             }
     }
 
-    override fun deleteNote(note: Note, result: (UiState<String>) -> Unit) {
+    override suspend fun deleteNote(note: Note, result: (UiState<String>) -> Unit) {
         val document = database.collection(FireStoreTable.NOTE).document(note.id)
         document
             .delete()
